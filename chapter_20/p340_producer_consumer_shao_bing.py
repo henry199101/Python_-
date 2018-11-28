@@ -19,7 +19,7 @@ if __name__ == "__main__":
 	q = Queue()
 
 	consumer_process = Process(target=consumer, args=(q,))
-	
+
 	consumer_process.start()
 
 	sequence = [1, 2, 3, 4]
