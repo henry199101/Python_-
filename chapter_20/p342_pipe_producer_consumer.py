@@ -1,5 +1,6 @@
 from multiprocessing import Pipe, Process
 
+
 def consumer(pipe):
 	output_p, input_p = pipe
 	input_p.close()
