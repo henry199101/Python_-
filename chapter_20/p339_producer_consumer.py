@@ -1,23 +1,26 @@
-import multiprocessing
+from multiprocessing import Process, JoinableQueue
 
-def consumer(input_q):
+def consumer(q):
 	while True:
-		item = input_q.get()
-		print(item)
-		input_q.task_done()
+		item = q.get()
 
-def producer(sequence, output_q):
+		print(item)
+
+		q.task_done()
+
+
+def producer(sequence, q):
 	for item in sequence:
-		output_q.put(item)
+		q.put(item)
+
 
 if __name__ == "__main__":
-	q = multiprocessing.JoinableQueue()
-	cons_p = multiprocessing.Process(target=consumer, args=(q,))
-	cons_p.daemon=True
-	cons_p.start()
+	q = JoinableQueue()
+	consumer_process = Process(target=consumer, args=(q,))
+	consumer_process.daemon = True
+	consumer_process.start()
 
-	sequence = [1,2,3,4]
+	sequence = [1, 2, 3, 4]
 	producer(sequence, q)
 
-	#q.join()
-	print("done!")
+	q.join()
