@@ -12,3 +12,4 @@ if __name__ == "__main__":
 	p.start()
 	#print("hello!")
 	#p.join()
+	#print("all")
